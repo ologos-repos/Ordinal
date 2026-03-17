@@ -56,6 +56,20 @@ Detection runs in two modes:
 
 Both validators (frontend JS and backend Python) enforce the same ontology rules.
 
+For the full formal specification — including the Union-Find algorithms, edge resolution rules, and complexity analysis — see [ONTOLOGY.md](ONTOLOGY.md).
+
+### The Formula
+
+The complete ontology detection is a composition of three morphisms on the graph:
+
+```
+Ω(G) = W(F(M(G)))
+```
+
+Where **M** detects machines (Union-Find on node edges), **F** detects factories (Union-Find on machine edges), and **W** detects networks (Union-Find + BFS on factory edges). Each level defines a vertex set from the previous level's output, resolves edges upward, computes connected components, and filters by minimum cardinality. The result is a strict containment hierarchy — linear time, no overlap.
+
+This formula is rooted in ordinal logic: the idea that structure emerges from connection at successive levels of abstraction. An `.ologic` file is a declarative graph that Ordinal's ontology algorithm transforms into a hierarchical system model. The name "O-logic" comes from the O-machine concept — a Turing machine augmented with an oracle function. In Ordinal's case, the oracle is the human operator who decides what to connect and at what level of abstraction. The algorithm discovers the hierarchy; the human provides the intent.
+
 ---
 
 ## Blueprint Format (`.ologic`)
@@ -162,10 +176,10 @@ Ordinal is the visual layer in a three-part system:
 | Component | Role |
 |-----------|------|
 | **Ordinal** | Visual graph editor (this repo) |
-| **[Ordinal-MCP](https://github.com/bobbyhiddn/Ordinal-MCP)** | Headless MCP tool server — model validation, rendering, pipeline execution |
+| **[Ordinal-MCP](https://github.com/bobbyhiddn/Ordinal-MCP)** | MCP wrapper — exposes Ordinal's validation, rendering, and execution as MCP tools |
 | **Rhode** | Backend API server — AI completion, graph storage, serving the SPA |
 
-Ordinal-MCP can be used independently to validate `.ologic` blueprints, render graph images, and execute pipelines without the visual editor.
+Ordinal-MCP wraps Ordinal's capabilities as MCP tools for use by AI agents and external systems. It is not a standalone implementation — it delegates to Ordinal and Rhode for validation, rendering, and execution.
 
 ---
 
