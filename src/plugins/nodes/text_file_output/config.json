@@ -1,0 +1,30 @@
+{
+  "id": "text-file-output",
+  "name": "Text File Output",
+  "version": "1.0.0",
+  "category": "output",
+  "description": "An AI-powered text generation node that creates and saves text files",
+  "author": "Ordinal Core Team",
+  "icon": "📝",
+  "color": {
+    "primary": "#f59e0b",
+    "secondary": "#fef3c7",
+    "text": "#92400e"
+  },
+  "connections": {
+    "canReceiveInputs": true,
+    "canCreateOutputs": true,
+    "maxInputs": -1,
+    "maxOutputs": -1
+  },
+  "settings": {
+    "allowCustomContent": true,
+    "supportAIGeneration": true,
+    "supportFileSaving": true,
+    "defaultFileExtension": ".md",
+    "expandRatio": {
+      "vertical": 5,
+      "horizontal": 1
+    }
+  }
+}

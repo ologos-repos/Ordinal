@@ -1,0 +1,29 @@
+logic:
+  mode: knowledge
+  version: '2.0'
+  machines:
+    - id: test-machine
+      nodes:
+        - id: input-node
+          type: input
+          content: "Input"
+          x: 50
+          y: 100
+          outputs:
+            - process-node
+        - id: process-node
+          type: process
+          content: "Process"
+          x: 300
+          y: 100
+          inputs:
+            - input-node
+          outputs:
+            - output-node
+        - id: output-node
+          type: output
+          content: "Output"
+          x: 550
+          y: 100
+          inputs:
+            - process-node

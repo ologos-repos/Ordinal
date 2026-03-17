@@ -1,0 +1,44 @@
+logic:
+  mode: knowledge
+  version: '2.0'
+  networks:
+    - id: test-network
+      factories:
+        - id: factory-one
+          machines:
+            - id: f1-machine
+              nodes:
+                - id: f1-input
+                  type: input
+                  content: "Factory 1 Input"
+                  x: 50
+                  y: 100
+                  outputs:
+                    - f1-output
+                - id: f1-output
+                  type: output
+                  content: "Factory 1 Output"
+                  x: 300
+                  y: 100
+                  inputs:
+                    - f1-input
+        - id: factory-two
+          machines:
+            - id: f2-machine
+              nodes:
+                - id: f2-process
+                  type: process
+                  content: "Factory 2 Process"
+                  x: 600
+                  y: 100
+                  inputs:
+                    - factory-one
+                  outputs:
+                    - f2-output
+                - id: f2-output
+                  type: output
+                  content: "Factory 2 Output"
+                  x: 850
+                  y: 100
+                  inputs:
+                    - f2-process

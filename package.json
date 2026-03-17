@@ -1,0 +1,23 @@
+{
+  "name": "ordinal",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "npx vite",
+    "build": "npx vite build",
+    "preview": "npx vite preview",
+    "tscheck": "npx tsc --noEmit",
+    "tswatch": "npx tsc --noEmit -w"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^2.5.0",
+    "svelte": "^4.2.19",
+    "svelte-check": "^4.3.1",
+    "typescript": "^5.9.2",
+    "vite": "^4.5.0"
+  },
+  "dependencies": {
+    "yaml": "^2.8.1"
+  }
+}

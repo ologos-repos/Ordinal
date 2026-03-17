@@ -1,0 +1,88 @@
+# FIX: Original had two "networks" each containing only 1 factory with 1 machine — that's a factory,
+# not a network. A network requires a factory connected to an external node (another factory).
+# Corrected: Each network now has 2 factories connected by an inter-factory edge, making each
+# a proper network. The two networks remain disconnected from each other (independent).
+logic:
+  mode: knowledge
+  version: '2.0'
+  networks:
+    - id: network-north
+      factories:
+        - id: north-factory
+          machines:
+            - id: nf-machine
+              nodes:
+                - id: nf-in
+                  type: input
+                  content: "Network North"
+                  x: 50
+                  y: 100
+                  outputs:
+                    - nf-out
+                - id: nf-out
+                  type: output
+                  content: "North Output"
+                  x: 300
+                  y: 100
+                  inputs:
+                    - nf-in
+        - id: north-ext-factory
+          machines:
+            - id: north-ext-machine
+              nodes:
+                - id: north-ext-process
+                  type: process
+                  content: "North External"
+                  x: 600
+                  y: 100
+                  inputs:
+                    - north-factory
+                  outputs:
+                    - north-ext-out
+                - id: north-ext-out
+                  type: output
+                  content: "North Final"
+                  x: 850
+                  y: 100
+                  inputs:
+                    - north-ext-process
+    - id: network-south
+      factories:
+        - id: south-factory
+          machines:
+            - id: sf-machine
+              nodes:
+                - id: sf-in
+                  type: input
+                  content: "Network South"
+                  x: 50
+                  y: 400
+                  outputs:
+                    - sf-out
+                - id: sf-out
+                  type: output
+                  content: "South Output"
+                  x: 300
+                  y: 400
+                  inputs:
+                    - sf-in
+        - id: south-ext-factory
+          machines:
+            - id: south-ext-machine
+              nodes:
+                - id: south-ext-process
+                  type: process
+                  content: "South External"
+                  x: 600
+                  y: 400
+                  inputs:
+                    - south-factory
+                  outputs:
+                    - south-ext-out
+                - id: south-ext-out
+                  type: output
+                  content: "South Final"
+                  x: 850
+                  y: 400
+                  inputs:
+                    - south-ext-process

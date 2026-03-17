@@ -1,0 +1,71 @@
+logic:
+  mode: diagramming
+  version: '2.0'
+  factories:
+    - id: microservices-factory
+      machines:
+        - id: gateway-machine
+          nodes:
+            - id: api-gateway
+              type: gateway
+              content: "API Gateway"
+              x: 50
+              y: 150
+              outputs:
+                - auth-service
+                - user-service
+                - order-service
+        - id: auth-service
+          nodes:
+            - id: auth-api
+              type: api
+              content: "Auth Service"
+              x: 400
+              y: 50
+              inputs:
+                - gateway-machine
+              outputs:
+                - auth-db
+            - id: auth-db
+              type: database
+              content: "Auth DB"
+              x: 650
+              y: 50
+              inputs:
+                - auth-api
+        - id: user-service
+          nodes:
+            - id: user-api
+              type: api
+              content: "User Service"
+              x: 400
+              y: 150
+              inputs:
+                - gateway-machine
+              outputs:
+                - user-db
+            - id: user-db
+              type: database
+              content: "User DB"
+              x: 650
+              y: 150
+              inputs:
+                - user-api
+        - id: order-service
+          nodes:
+            - id: order-api
+              type: api
+              content: "Order Service"
+              x: 400
+              y: 250
+              inputs:
+                - gateway-machine
+              outputs:
+                - order-db
+            - id: order-db
+              type: database
+              content: "Order DB"
+              x: 650
+              y: 250
+              inputs:
+                - order-api

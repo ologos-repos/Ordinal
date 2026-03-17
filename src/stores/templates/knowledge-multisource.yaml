@@ -1,0 +1,45 @@
+logic:
+  mode: knowledge
+  version: '2.0'
+  machines:
+    - id: research-machine
+      nodes:
+        - id: source-1
+          type: source
+          content: "Source 1"
+          x: 50
+          y: 50
+          outputs:
+            - ai-synthesizer
+        - id: source-2
+          type: source
+          content: "Source 2"
+          x: 50
+          y: 150
+          outputs:
+            - ai-synthesizer
+        - id: source-3
+          type: source
+          content: "Source 3"
+          x: 50
+          y: 250
+          outputs:
+            - ai-synthesizer
+        - id: ai-synthesizer
+          type: ai
+          content: "Synthesize research"
+          x: 400
+          y: 150
+          inputs:
+            - source-1
+            - source-2
+            - source-3
+          outputs:
+            - output-1
+        - id: output-1
+          type: output
+          content: "Research Summary"
+          x: 750
+          y: 150
+          inputs:
+            - ai-synthesizer

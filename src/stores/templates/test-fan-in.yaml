@@ -1,0 +1,45 @@
+logic:
+  mode: knowledge
+  version: '2.0'
+  machines:
+    - id: fanin-machine
+      nodes:
+        - id: input-1
+          type: input
+          content: "Input 1"
+          x: 50
+          y: 50
+          outputs:
+            - merger
+        - id: input-2
+          type: input
+          content: "Input 2"
+          x: 50
+          y: 200
+          outputs:
+            - merger
+        - id: input-3
+          type: input
+          content: "Input 3"
+          x: 50
+          y: 350
+          outputs:
+            - merger
+        - id: merger
+          type: process
+          content: "Merge"
+          x: 350
+          y: 200
+          inputs:
+            - input-1
+            - input-2
+            - input-3
+          outputs:
+            - output
+        - id: output
+          type: output
+          content: "Output"
+          x: 650
+          y: 200
+          inputs:
+            - merger

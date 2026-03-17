@@ -1,0 +1,60 @@
+logic:
+  mode: diagramming
+  version: '2.0'
+  factories:
+    - id: web-app-factory
+      machines:
+        - id: client-tier
+          nodes:
+            - id: user-1
+              type: user
+              content: "Web Browser"
+              x: 50
+              y: 150
+              outputs:
+                - loadbalancer-1
+            - id: loadbalancer-1
+              type: loadbalancer
+              content: "Load Balancer"
+              x: 300
+              y: 150
+              inputs:
+                - user-1
+        - id: app-tier
+          nodes:
+            - id: server-1
+              type: server
+              content: "App Server 1"
+              x: 600
+              y: 50
+              inputs:
+                - client-tier
+              outputs:
+                - database-1
+            - id: server-2
+              type: server
+              content: "App Server 2"
+              x: 600
+              y: 150
+              inputs:
+                - client-tier
+              outputs:
+                - database-1
+            - id: server-3
+              type: server
+              content: "App Server 3"
+              x: 600
+              y: 250
+              inputs:
+                - client-tier
+              outputs:
+                - database-1
+        - id: data-tier
+          nodes:
+            - id: database-1
+              type: database
+              content: "Primary DB"
+              x: 950
+              y: 150
+              inputs:
+                - app-tier

@@ -1,0 +1,36 @@
+logic:
+  mode: knowledge
+  version: '2.0'
+  machines:
+    - id: fanout-machine
+      nodes:
+        - id: source
+          type: input
+          content: "Source"
+          x: 50
+          y: 200
+          outputs:
+            - process-1
+            - process-2
+            - process-3
+        - id: process-1
+          type: process
+          content: "Process 1"
+          x: 350
+          y: 50
+          inputs:
+            - source
+        - id: process-2
+          type: process
+          content: "Process 2"
+          x: 350
+          y: 200
+          inputs:
+            - source
+        - id: process-3
+          type: process
+          content: "Process 3"
+          x: 350
+          y: 350
+          inputs:
+            - source

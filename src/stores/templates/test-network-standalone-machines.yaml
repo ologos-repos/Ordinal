@@ -1,0 +1,65 @@
+# FIX: Original had a network container + disconnected standalone machine — no connection = not a network.
+# Corrected: Wrapped in a proper network by adding two factories connected by an inter-factory edge.
+# The standalone-machine is the second factory's terminating node, making net-factory a real network
+# (factory + external connected entity). A separate unconnected node demonstrates "standalone" context.
+logic:
+  mode: knowledge
+  version: '2.0'
+  networks:
+    - id: main-network
+      factories:
+        - id: net-factory
+          machines:
+            - id: nf-machine
+              nodes:
+                - id: nf-input
+                  type: input
+                  content: "Network Factory Input"
+                  x: 50
+                  y: 100
+                  outputs:
+                    - nf-output
+                - id: nf-output
+                  type: output
+                  content: "Network Factory Output"
+                  x: 300
+                  y: 100
+                  inputs:
+                    - nf-input
+        - id: ext-factory
+          machines:
+            - id: ext-machine
+              nodes:
+                - id: ext-process
+                  type: process
+                  content: "External Process"
+                  x: 600
+                  y: 100
+                  inputs:
+                    - net-factory
+                  outputs:
+                    - ext-output
+                - id: ext-output
+                  type: output
+                  content: "External Output"
+                  x: 850
+                  y: 100
+                  inputs:
+                    - ext-process
+  machines:
+    - id: standalone-machine
+      nodes:
+        - id: sm-node
+          type: process
+          content: "Standalone Machine"
+          x: 50
+          y: 350
+          outputs:
+            - sm-out
+        - id: sm-out
+          type: output
+          content: "Output"
+          x: 300
+          y: 350
+          inputs:
+            - sm-node

@@ -1,0 +1,58 @@
+# FIX: Original had a network container with only 1 factory (1 machine) + disconnected nodes = not a network.
+# Corrected: Added a second factory connected to the first via an inter-factory edge, making main-net
+# a true network (two factories connected). Standalone nodes remain unconnected at the top level.
+logic:
+  mode: knowledge
+  version: '2.0'
+  networks:
+    - id: main-net
+      factories:
+        - id: net-fac
+          machines:
+            - id: nm1
+              nodes:
+                - id: nm1-in
+                  type: input
+                  content: "Network Input"
+                  x: 50
+                  y: 100
+                  outputs:
+                    - nm1-out
+                - id: nm1-out
+                  type: output
+                  content: "Network Output"
+                  x: 300
+                  y: 100
+                  inputs:
+                    - nm1-in
+        - id: ext-fac
+          machines:
+            - id: ext-nm
+              nodes:
+                - id: ext-nm-process
+                  type: process
+                  content: "External Network Process"
+                  x: 600
+                  y: 100
+                  inputs:
+                    - net-fac
+                  outputs:
+                    - ext-nm-out
+                - id: ext-nm-out
+                  type: output
+                  content: "External Output"
+                  x: 850
+                  y: 100
+                  inputs:
+                    - ext-nm-process
+  nodes:
+    - id: loose-1
+      type: static
+      content: "Loose Node 1"
+      x: 50
+      y: 350
+    - id: loose-2
+      type: ai
+      content: "Loose Node 2"
+      x: 300
+      y: 350

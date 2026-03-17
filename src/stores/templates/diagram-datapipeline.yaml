@@ -1,0 +1,58 @@
+logic:
+  mode: diagramming
+  version: '2.0'
+  factories:
+    - id: data-pipeline-factory
+      machines:
+        - id: ingestion-machine
+          nodes:
+            - id: source-1
+              type: source
+              content: "Data Source"
+              x: 50
+              y: 150
+              outputs:
+                - queue-1
+            - id: queue-1
+              type: queue
+              content: "Ingestion Queue"
+              x: 300
+              y: 150
+              inputs:
+                - source-1
+        - id: processing-machine
+          nodes:
+            - id: worker-1
+              type: worker
+              content: "ETL Worker"
+              x: 550
+              y: 150
+              inputs:
+                - ingestion-machine
+              outputs:
+                - cache-1
+            - id: cache-1
+              type: cache
+              content: "Redis Cache"
+              x: 800
+              y: 50
+              inputs:
+                - worker-1
+        - id: storage-machine
+          nodes:
+            - id: database-1
+              type: database
+              content: "Data Warehouse"
+              x: 1050
+              y: 150
+              inputs:
+                - processing-machine
+              outputs:
+                - monitor-1
+            - id: monitor-1
+              type: monitor
+              content: "Analytics"
+              x: 1350
+              y: 150
+              inputs:
+                - database-1

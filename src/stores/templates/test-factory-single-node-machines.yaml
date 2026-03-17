@@ -1,0 +1,31 @@
+logic:
+  mode: knowledge
+  version: '2.0'
+  factories:
+    - id: singleton-factory
+      machines:
+        - id: single-node-m1
+          nodes:
+            - id: snm1-input
+              type: input
+              content: "Single Input"
+              x: 50
+              y: 100
+        - id: single-node-m2
+          nodes:
+            - id: snm2-process
+              type: process
+              content: "Single Process"
+              x: 300
+              y: 100
+              inputs:
+                - single-node-m1
+        - id: single-node-m3
+          nodes:
+            - id: snm3-output
+              type: output
+              content: "Single Output"
+              x: 550
+              y: 100
+              inputs:
+                - single-node-m2

@@ -1,0 +1,20 @@
+logic:
+  mode: knowledge
+  version: '2.0'
+  machines:
+    - id: new-machine
+      nodes:
+        - id: input-1
+          type: input
+          content: "Input"
+          x: 50
+          y: 100
+          outputs:
+            - output-1
+        - id: output-1
+          type: output
+          content: "Output"
+          x: 350
+          y: 100
+          inputs:
+            - input-1

@@ -1,0 +1,40 @@
+logic:
+  mode: knowledge
+  version: '2.0'
+  factories:
+    - id: test-factory
+      machines:
+        - id: machine-alpha
+          nodes:
+            - id: alpha-input
+              type: input
+              content: "Alpha Input"
+              x: 50
+              y: 100
+              outputs:
+                - alpha-process
+            - id: alpha-process
+              type: process
+              content: "Alpha Process"
+              x: 300
+              y: 100
+              inputs:
+                - alpha-input
+        - id: machine-beta
+          nodes:
+            - id: beta-process
+              type: process
+              content: "Beta Process"
+              x: 600
+              y: 100
+              inputs:
+                - machine-alpha
+              outputs:
+                - beta-output
+            - id: beta-output
+              type: output
+              content: "Beta Output"
+              x: 850
+              y: 100
+              inputs:
+                - beta-process

@@ -1,0 +1,38 @@
+logic:
+  mode: knowledge
+  version: '2.0'
+  machines:
+    - id: chain-machine
+      nodes:
+        - id: node-a
+          type: input
+          content: "A"
+          x: 50
+          y: 100
+          outputs:
+            - node-b
+        - id: node-b
+          type: process
+          content: "B"
+          x: 250
+          y: 100
+          inputs:
+            - node-a
+          outputs:
+            - node-c
+        - id: node-c
+          type: process
+          content: "C"
+          x: 450
+          y: 100
+          inputs:
+            - node-b
+          outputs:
+            - node-d
+        - id: node-d
+          type: output
+          content: "D"
+          x: 650
+          y: 100
+          inputs:
+            - node-c

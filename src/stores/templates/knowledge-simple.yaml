@@ -1,0 +1,29 @@
+logic:
+  mode: knowledge
+  version: '2.0'
+  machines:
+    - id: ai-pipeline
+      nodes:
+        - id: input-1
+          type: input
+          content: "Enter your prompt here"
+          x: 50
+          y: 100
+          outputs:
+            - ai-1
+        - id: ai-1
+          type: ai
+          content: ""
+          x: 350
+          y: 100
+          inputs:
+            - input-1
+          outputs:
+            - output-1
+        - id: output-1
+          type: output
+          content: "Result"
+          x: 650
+          y: 100
+          inputs:
+            - ai-1

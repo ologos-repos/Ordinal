@@ -1,0 +1,24 @@
+logic:
+  mode: knowledge
+  version: '2.0'
+  nodes:
+    - id: node-a
+      type: input
+      content: "Node A"
+      x: 100
+      y: 100
+    - id: node-b
+      type: process
+      content: "Node B"
+      x: 300
+      y: 100
+    - id: node-c
+      type: output
+      content: "Node C"
+      x: 500
+      y: 100
+    - id: node-d
+      type: ai
+      content: "Node D"
+      x: 300
+      y: 250

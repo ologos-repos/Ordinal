@@ -1,0 +1,47 @@
+logic:
+  mode: automation
+  version: '2.0'
+  machines:
+    - id: oracle-flow
+      nodes:
+        - id: input-1
+          type: input
+          content: "Complex task"
+          x: 50
+          y: 100
+          outputs:
+            - worker-1
+        - id: worker-1
+          type: worker
+          content: "Autonomous worker"
+          x: 350
+          y: 100
+          inputs:
+            - input-1
+          outputs:
+            - oracle-1
+        - id: oracle-1
+          type: oracle
+          content: "Human decision"
+          x: 650
+          y: 100
+          inputs:
+            - worker-1
+          outputs:
+            - worker-2
+        - id: worker-2
+          type: worker
+          content: "Execute decision"
+          x: 950
+          y: 100
+          inputs:
+            - oracle-1
+          outputs:
+            - output-1
+        - id: output-1
+          type: output
+          content: "Final output"
+          x: 1250
+          y: 100
+          inputs:
+            - worker-2

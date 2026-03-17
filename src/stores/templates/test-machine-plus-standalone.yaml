@@ -1,0 +1,31 @@
+logic:
+  mode: knowledge
+  version: '2.0'
+  machines:
+    - id: connected-machine
+      nodes:
+        - id: m1-input
+          type: input
+          content: "Machine Input"
+          x: 50
+          y: 100
+          outputs:
+            - m1-output
+        - id: m1-output
+          type: output
+          content: "Machine Output"
+          x: 300
+          y: 100
+          inputs:
+            - m1-input
+  nodes:
+    - id: standalone-1
+      type: process
+      content: "Standalone Node 1"
+      x: 50
+      y: 300
+    - id: standalone-2
+      type: ai
+      content: "Standalone Node 2"
+      x: 300
+      y: 300

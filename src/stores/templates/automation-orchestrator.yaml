@@ -1,0 +1,60 @@
+logic:
+  mode: automation
+  version: '2.0'
+  machines:
+    - id: orchestration-machine
+      nodes:
+        - id: input-1
+          type: input
+          content: "Task batch"
+          x: 50
+          y: 150
+          outputs:
+            - orchestrator-1
+        - id: orchestrator-1
+          type: orchestrator
+          content: "Distribute tasks"
+          x: 350
+          y: 150
+          inputs:
+            - input-1
+          outputs:
+            - worker-1
+            - worker-2
+            - worker-3
+        - id: worker-1
+          type: worker
+          content: "Worker Alpha"
+          x: 650
+          y: 50
+          inputs:
+            - orchestrator-1
+          outputs:
+            - output-1
+        - id: worker-2
+          type: worker
+          content: "Worker Beta"
+          x: 650
+          y: 150
+          inputs:
+            - orchestrator-1
+          outputs:
+            - output-1
+        - id: worker-3
+          type: worker
+          content: "Worker Gamma"
+          x: 650
+          y: 250
+          inputs:
+            - orchestrator-1
+          outputs:
+            - output-1
+        - id: output-1
+          type: output
+          content: "Collected Results"
+          x: 950
+          y: 150
+          inputs:
+            - worker-1
+            - worker-2
+            - worker-3

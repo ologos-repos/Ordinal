@@ -1,0 +1,40 @@
+logic:
+  mode: knowledge
+  version: '2.0'
+  machines:
+    - id: diamond-machine
+      nodes:
+        - id: node-a
+          type: input
+          content: "A"
+          x: 50
+          y: 200
+          outputs:
+            - node-b
+            - node-c
+        - id: node-b
+          type: process
+          content: "B"
+          x: 300
+          y: 100
+          inputs:
+            - node-a
+          outputs:
+            - node-d
+        - id: node-c
+          type: process
+          content: "C"
+          x: 300
+          y: 300
+          inputs:
+            - node-a
+          outputs:
+            - node-d
+        - id: node-d
+          type: output
+          content: "D"
+          x: 550
+          y: 200
+          inputs:
+            - node-b
+            - node-c

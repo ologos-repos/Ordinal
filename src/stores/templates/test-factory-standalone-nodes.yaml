@@ -1,0 +1,37 @@
+logic:
+  mode: knowledge
+  version: '2.0'
+  factories:
+    - id: main-factory
+      machines:
+        - id: fm1
+          nodes:
+            - id: fm1-input
+              type: input
+              content: "Factory Machine 1"
+              x: 50
+              y: 100
+              outputs:
+                - fm1-out
+            - id: fm1-out
+              type: output
+              content: "Output"
+              x: 300
+              y: 100
+              inputs:
+                - fm1-input
+        - id: fm2
+          nodes:
+            - id: fm2-process
+              type: process
+              content: "Factory Machine 2"
+              x: 600
+              y: 100
+              inputs:
+                - fm1
+  nodes:
+    - id: standalone-node
+      type: static
+      content: "Standalone"
+      x: 600
+      y: 300

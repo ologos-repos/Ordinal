@@ -1,0 +1,52 @@
+logic:
+  mode: knowledge
+  version: '2.0'
+  machines:
+    - id: machine-one
+      nodes:
+        - id: m1-in
+          type: input
+          content: "Machine 1"
+          x: 50
+          y: 50
+          outputs:
+            - m1-out
+        - id: m1-out
+          type: output
+          content: "Output 1"
+          x: 300
+          y: 50
+          inputs:
+            - m1-in
+    - id: machine-two
+      nodes:
+        - id: m2-in
+          type: input
+          content: "Machine 2"
+          x: 50
+          y: 200
+          outputs:
+            - m2-out
+        - id: m2-out
+          type: output
+          content: "Output 2"
+          x: 300
+          y: 200
+          inputs:
+            - m2-in
+    - id: machine-three
+      nodes:
+        - id: m3-in
+          type: input
+          content: "Machine 3"
+          x: 50
+          y: 350
+          outputs:
+            - m3-out
+        - id: m3-out
+          type: output
+          content: "Output 3"
+          x: 300
+          y: 350
+          inputs:
+            - m3-in

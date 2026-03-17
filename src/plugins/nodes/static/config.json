@@ -1,0 +1,14 @@
+{
+    "id": "static",
+    "name": "Static Node",
+    "category": "Core",
+    "version": "1.0.0",
+    "icon": "📄",
+    "color": {
+        "primary": "#4caf50"
+    },
+    "connections": {
+        "canReceiveInputs": false,
+        "canCreateOutputs": true
+    }
+}

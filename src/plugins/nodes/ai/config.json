@@ -1,0 +1,14 @@
+{
+    "id":  "ai",
+    "name":  "AI Node",
+    "category":  "Core",
+    "icon":  "??",
+    "color":  {
+                  "primary":  "#9c27b0"
+              },
+    "connections":  {
+                        "canReceiveInputs":  true,
+                        "canCreateOutputs":  true
+                    },
+    "version":  "1.0.0"
+}

@@ -1,0 +1,25 @@
+{
+  "id": "text-source",
+  "name": "Text Source",
+  "version": "1.0.0",
+  "category": "data",
+  "description": "A text source node that loads content from text files",
+  "author": "Ordinal Core Team",
+  "icon": "📄",
+  "color": {
+    "primary": "#10b981",
+    "secondary": "#d1fae5",
+    "text": "#064e3b"
+  },
+  "connections": {
+    "canReceiveInputs": false,
+    "canCreateOutputs": true,
+    "maxInputs": 0,
+    "maxOutputs": -1
+  },
+  "settings": {
+    "allowCustomContent": false,
+    "supportFileLoading": true,
+    "supportedFileTypes": [".txt", ".md", ".json", ".yaml", ".yml"]
+  }
+}

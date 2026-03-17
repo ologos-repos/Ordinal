@@ -1,0 +1,58 @@
+logic:
+  mode: knowledge
+  version: '2.0'
+  factories:
+    - id: factory-alpha
+      machines:
+        - id: fa-m1
+          nodes:
+            - id: fa-m1-in
+              type: input
+              content: "Factory Alpha"
+              x: 50
+              y: 100
+              outputs:
+                - fa-m1-proc
+            - id: fa-m1-proc
+              type: process
+              content: "Process"
+              x: 300
+              y: 100
+              inputs:
+                - fa-m1-in
+        - id: fa-m2
+          nodes:
+            - id: fa-m2-out
+              type: output
+              content: "Alpha Output"
+              x: 600
+              y: 100
+              inputs:
+                - fa-m1
+    - id: factory-beta
+      machines:
+        - id: fb-m1
+          nodes:
+            - id: fb-m1-in
+              type: input
+              content: "Factory Beta"
+              x: 50
+              y: 300
+              outputs:
+                - fb-m1-proc
+            - id: fb-m1-proc
+              type: process
+              content: "Process"
+              x: 300
+              y: 300
+              inputs:
+                - fb-m1-in
+        - id: fb-m2
+          nodes:
+            - id: fb-m2-out
+              type: output
+              content: "Beta Output"
+              x: 600
+              y: 300
+              inputs:
+                - fb-m1

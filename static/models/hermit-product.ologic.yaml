@@ -1,0 +1,141 @@
+logic:
+  mode: diagramming
+  version: '2.0'
+  networks:
+    - id: hermit-platform
+      label: "Hermit Platform"
+      factories:
+
+        # ── DMZ Layer ──────────────────────────────────────────────────────────
+        # Machine: fiat → shore-relay (direct node edge = machine)
+        # Factory trigger: shore-soc.inputs: [dmz-chain] = machine→node → factory
+        - id: dmz
+          label: "DMZ Layer"
+          machines:
+            - id: dmz-chain
+              label: "Ingress Chain"
+              nodes:
+                - id: fiat
+                  type: gateway
+                  title: "Fiat"
+                  content: "Fly.io reverse proxy"
+                  outputs: [shore-relay]
+                  requirements: [REQ-HERM-001]
+                - id: shore-relay
+                  type: monitor
+                  title: "Shore Relay"
+                  content: "Traffic relay to SOC"
+          nodes:
+            - id: shore-soc
+              type: monitor
+              title: "Shore"
+              content: "SOC watchdog :7778"
+              inputs: [dmz-chain]
+              requirements: [REQ-HERM-002]
+
+        # ── Core Services ──────────────────────────────────────────────────────
+        # Machine: rhode → ordinal (direct node edge = machine)
+        # Factory trigger: olive.inputs: [core-chain] = machine→node → factory
+        - id: core
+          label: "Core Services"
+          machines:
+            - id: core-chain
+              label: "Agent & Language"
+              nodes:
+                - id: rhode
+                  type: ai
+                  title: "Rhode"
+                  content: "Director agent :7777"
+                  outputs: [ordinal]
+                  requirements: [REQ-HERM-003]
+                - id: ordinal
+                  type: process
+                  title: "Ordinal"
+                  content: "Visual language engine"
+                  requirements: [REQ-HERM-004]
+          nodes:
+            - id: olive
+              type: process
+              title: "Olive"
+              content: "Requirements engine"
+              inputs: [core-chain]
+
+        # ── Infrastructure ─────────────────────────────────────────────────────
+        # Machine: golem → circle (direct node edge = machine)
+        # Factory trigger: galley.inputs: [infra-chain] = machine→node → factory
+        - id: infra
+          label: "Infrastructure"
+          machines:
+            - id: infra-chain
+              label: "Orchestration Mesh"
+              nodes:
+                - id: golem
+                  type: server
+                  title: "Golem"
+                  content: "K3s container orchestration"
+                  outputs: [circle]
+                - id: circle
+                  type: server
+                  title: "Circle"
+                  content: "Service mesh / MCP"
+          nodes:
+            - id: galley
+              type: server
+              title: "Galley"
+              content: "MCP tool registry"
+              inputs: [infra-chain]
+              requirements: [REQ-HERM-006]
+
+        # ── Support ────────────────────────────────────────────────────────────
+        # Machine: sympathy → waffleiron (direct node edge = machine)
+        # Factory trigger: provisioner.inputs: [support-chain] = machine→node → factory
+        - id: support
+          label: "Support"
+          machines:
+            - id: support-chain
+              label: "IaC & Media"
+              nodes:
+                - id: sympathy
+                  type: process
+                  title: "Sympathy"
+                  content: "Infrastructure as Code"
+                  outputs: [waffleiron]
+                  requirements: [REQ-HERM-005]
+                - id: waffleiron
+                  type: process
+                  title: "WaffleIron"
+                  content: "Video production toolkit"
+          nodes:
+            - id: provisioner
+              type: gateway
+              title: "Provisioner"
+              content: "IaC deployment gateway"
+              inputs: [support-chain]
+
+      # ── Network-level nodes ────────────────────────────────────────────────
+      # These nodes bridge the factories into a network.
+      # inputs: [factory-id] = factory→node connection → triggers network detection
+      nodes:
+        - id: dmz-gateway
+          type: gateway
+          title: "DMZ Gateway"
+          content: "External ingress control"
+          inputs: [dmz]
+          outputs: [core-hub]
+        - id: core-hub
+          type: ai
+          title: "Core Hub"
+          content: "Coordination layer"
+          inputs: [core]
+          outputs: [infra-hub]
+        - id: infra-hub
+          type: server
+          title: "Infra Hub"
+          content: "Infrastructure integration"
+          inputs: [infra]
+          outputs: [support-node]
+        - id: support-node
+          type: gateway
+          title: "Support Node"
+          content: "Platform support layer"
+          inputs: [support]
