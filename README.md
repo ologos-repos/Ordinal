@@ -1,63 +1,78 @@
-# Svelte + Vite
+# Ordinal
 
-This template should help get you started developing with Svelte in Vite.
+A visual node-based graph editor for modeling, visualizing, and executing complex systems through hierarchical container-based ontologies.
 
-## Recommended IDE Setup
+## What It Does
 
-[VS Code](https://code.visualstudio.com/)
+Ordinal is a multi-mode visual editor that operates on a **4-level container hierarchy**: Networks > Factories > Machines > Nodes. You build graphs by connecting nodes, and the system automatically discovers semantic boundaries using Union-Find algorithms.
 
-+ [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+Three operating modes, same canvas:
 
-## Need an official Svelte framework?
+- **Knowledge Mode** — AI completion pipelines. Connect text/PDF sources through AI processing nodes to file outputs. Token counting tracks LLM context size in real-time.
+- **Automation Mode** — Agent orchestration graphs. Workers, orchestrators, oracles, and action nodes with human-in-the-loop oracle gates for pause points during execution.
+- **Diagramming Mode** — Architecture visualization with 20+ node types (server, database, API, cloud, gateway, container, queue, cache, firewall, and more).
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its
-serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less,
-and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+## Ontology System
 
-## Technical considerations
+The core concept: **connected components form hierarchy automatically**.
 
-**Why use this over SvelteKit?**
+| Level | What It Is | How It Forms |
+|-------|-----------|--------------|
+| **Node** | Atomic unit | Always exists |
+| **Machine** | 2+ connected nodes | Node-to-node edges (Union-Find merge) |
+| **Factory** | Machine + external bridge node | A node inside one machine has `inputs: [other-machine-id]` |
+| **Network** | Factory + external bridge entity | A node inside a factory has `inputs: [other-factory-id]` |
 
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
-  `vite dev` and `vite build` wouldn't work in a SvelteKit environment, for example.
+The key pattern: **a bridge node inside a downstream container with `inputs:` pointing to an upstream container triggers the next hierarchy level.** This gives you semantic boundaries without explicit nesting.
 
-This template contains as little as possible to get started with Vite + Svelte, while taking into account the developer
-experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite`
-templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+## Blueprint Format (`.ologic`)
 
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been
-structured similarly to SvelteKit so that it is easy to migrate.
+Graphs are defined in YAML and can be loaded, saved, and shared:
 
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
-
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash
-references keeps the default TypeScript setting of accepting type information from the entire workspace, while also
-adding `svelte` and `vite/client` type information.
-
-**Why include `.vscode/extensions.json`?**
-
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to
-install the recommended extension upon opening the project.
-
-**Why enable `checkJs` in the JS template?**
-
-It is likely that most cases of changing variable types in runtime are likely to be accidental, rather than deliberate.
-This provides advanced typechecking out of the box. Should you like to take advantage of the dynamically-typed nature of
-JavaScript, it is trivial to change the configuration.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr`
-and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the
-details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be
-replaced by HMR.
-
-```js
-// store.js
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
+```yaml
+logic:
+  mode: diagramming
+  version: '2.0'
+  factories:
+    - id: my-factory
+      machines:
+        - id: pipeline
+          nodes:
+            - id: ingest
+              type: source
+              title: Ingest
+              outputs: [process]
+            - id: process
+              type: process
+              title: Process
+      nodes:
+        - id: monitor
+          type: monitor
+          title: Monitor
+          inputs: [pipeline]
 ```
+
+17 built-in templates cover common patterns across all three modes.
+
+## Tech Stack
+
+- **Frontend**: Svelte 4 + Vite
+- **Canvas**: Custom drag/pan/zoom with bezier connections, box selection, context menus
+- **Ontology**: Union-Find detection (implicit from connections) + explicit YAML hierarchy preservation
+- **Backend**: Rhode API integration for AI completion, settings, graph CRUD
+- **Theme**: Catppuccin Mocha
+
+## Running
+
+```bash
+npm install
+npm run dev
+```
+
+## Integration
+
+Ordinal serves as the visual layer for the [Ordinal-MCP](https://github.com/bobbyhiddn/Ordinal-MCP) server, which provides `.ologic` model validation, rendering, and pipeline execution as MCP tools. The MCP server can be used independently for headless model processing.
+
+## License
+
+MIT
